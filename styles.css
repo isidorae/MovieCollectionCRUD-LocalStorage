@@ -1,0 +1,95 @@
+/** Custom Properties **/
+:root {
+    --red-logo-color: #ce3131;
+    --hero-img-opacity: linear-gradient(143deg, rgba(2,0,36,0.7) 0%, rgba(98,98,170,0.6) 42%, rgba(255,0,84,0.6) 100%);
+    --red-logo-color-hover: #5b2222;
+}
+
+
+
+/** Bootstrap styles **/
+
+/*navbar*/
+.navbar-brand img {
+    height: 4rem;
+
+}
+
+.navbar-toggler {
+   
+border: none !important;
+   
+  }
+
+.navbar {
+    --bs-navbar-toggler-icon-bg: none;
+    --bs-navbar-toggler-border-color: none;
+    --bs-navbar-toggler-border-radius: none; 
+    --bs-navbar-toggler-focus-width: none !important;
+    --bs-navbar-toggler-transition: none !important;
+
+    border-bottom: thin solid rgb(37, 35, 35);
+    box-shadow: 0rem 0rem 0.3rem rgb(216, 33, 33);
+
+}
+
+.nav-link:hover {
+    background-color: var(--red-logo-color);
+}
+
+/*hero image*/
+.btn-primary {
+    --bs-btn-bg: var(--red-logo-color) !important;
+    --bs-btn-border-color: var(--red-logo-color) !important;
+    --bs-btn-hover-bg: var(--red-logo-color-hover)!important;
+    --bs-btn-hover-border-color: var(--red-logo-color-hover)!important;
+    box-shadow: 0.1rem 0.2rem 0.3rem rgb(41, 37, 37);
+  }
+
+
+/** My style s**/
+
+
+/*Hero image*/
+.bg-hero-image {
+    height:80vh;
+    background-image: url(./img/moviecollection1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no repeat;
+    
+}
+
+.opacity-bg {
+    height: inherit;
+    background: var(--hero-img-opacity);
+}
+
+.hero-img-container {
+    height: inherit;
+}
+
+.hero-img-container h1 {
+    text-shadow: 0.3rem 0.3rem 0.3rem rgb(193, 48, 48);
+}
+
+.hero-img-container p {
+    text-shadow: 0.3rem 0.3rem 0.3rem rgb(40, 35, 35);
+}
+
+
+/* footer */
+.footer-container {
+    height: 6rem;
+}
+
+.social-hover:hover {
+    background-color: var(--red-logo-color);
+}
+
+.text-gray {
+    color: gainsboro;
+}
+
+
+
