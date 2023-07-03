@@ -1,13 +1,14 @@
-/** Custom Properties **/
+/********************** Custom Properties **********************/
 :root {
     --red-logo-color: #ce3131;
     --hero-img-opacity: linear-gradient(143deg, rgba(2,0,36,0.7) 0%, rgba(98,98,170,0.6) 42%, rgba(255,0,84,0.6) 100%);
     --red-logo-color-hover: #5b2222;
+    --bg-color: linear-gradient(143deg, rgba(220, 218, 218, 0.7) 0%, rgba(237, 236, 242, 0.6) 42%, rgba(244, 240, 254, 0.6) 100%);
 }
 
 
 
-/** Bootstrap styles **/
+/******************** Bootstrap styles ********************/
 
 /*navbar*/
 .navbar-brand img {
@@ -46,9 +47,20 @@ border: none !important;
     box-shadow: 0.1rem 0.2rem 0.3rem rgb(41, 37, 37);
   }
 
+/* table*/
+.table-dark {
+    border: medium solid var(--red-logo-color);
+    border-color: var(--red-logo-color) !important;
+  }
+/******************** My style********************/
 
-/** My style s**/
+.bg-color {
+    background: var(--bg-color);
+}
 
+h2 {
+    text-shadow: 0.1rem 0.1rem 0.3rem rgb(193, 48, 48);
+}
 
 /*Hero image*/
 .bg-hero-image {
@@ -77,6 +89,23 @@ border: none !important;
     text-shadow: 0.3rem 0.3rem 0.3rem rgb(40, 35, 35);
 }
 
+/*table*/
+
+.errorMsg {
+    color:var(--red-logo-color);
+}
+
+.titles-table img {
+    height: 4rem;
+}
+
+.imagen-movie {
+    border: thin solid lightblue;
+    height: 100px;
+    width: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
 /* footer */
 .footer-container {
