@@ -45,7 +45,7 @@
       <div class="hero-img-container d-flex flex-column justify-content-center align-items-center">
           <h1 class="fw-bold text-white fs-1">Bienvenido <i>CineAdicto!</i></h1>
           <p class="fw-bold text-white text-center fs-2">¡Comienza a crear tu Colección! <br> haz click para agregar tu primera pelicula</p>
-          <button type="button" class="col-4 btn btn-primary btn-lg fw-bold text-uppercase"><a class="text-decoration-none text-white " href="#agrega-pelicula-header">Añadir Pelicula</a></button>
+          <button type="button" class="col-4 btn btn-primary btn-lg fw-bold text-uppercase"><a class="text-decoration-none text-white" href="#agrega-pelicula-header">Añadir Pelicula</a></button>
       </div>
     </article>
   </section>
@@ -54,7 +54,7 @@
 <h2 id="agrega-pelicula-header" class="text-center fw-bold text-white fs-1">Agrega una Pelicula!</h2>
 <section class="container">
   <p class="errorMsg pt-1"></p>
-  <form id ="movie-form" class="row gy-2 gx-3 align-items-center pt-2">
+  <form onsubmit="addDataLocalStorage(event)" id ="movie-form" class="row gy-2 gx-3 align-items-center pt-2">
     <div class="col-6 input-group">
       <label class="visually-hidden" for="autoSizingInput">Name</label>
       <div class="input-group-text ">Pelicula</div>
