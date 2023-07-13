@@ -140,6 +140,15 @@
 // // "<option>OBRA MAESTRA<div>💎</div></option>", comment:"Increible!",}
 // ]
 
+ //HIDE UPADATE BUTTON
+
+function hideUpdateButton () {
+    const updateButton = document.querySelector("#boton-actualizar") 
+    updateButton.style.display = "none" //default --> display: inline-block;
+}
+
+hideUpdateButton()
+
 
 
 //******************** STORE DATA LOCAL STORAGE
@@ -147,14 +156,15 @@ function addDataLocalStorage(event) {
     event.preventDefault();
 
     //Acceder a values
-    const movie = document.getElementById("movie").value
-    const anio = document.getElementById("anio").value
-    const rating = document.getElementById("specificSizeSelect").value
-    const comment = document.getElementById("exampleFormControlTextarea1").value
+    let movie = document.getElementById("movie").value
+    let anio = document.getElementById("anio").value
+    let rating = document.getElementById("specificSizeSelect").value
+    let comment = document.getElementById("exampleFormControlTextarea1").value
+    let movieID = getMovieID(); 
 
     //validadores
 
-    const errorMsg = document.querySelector(".errorMsg");
+    let errorMsg = document.querySelector(".errorMsg");
     
     let messages = [];
 
@@ -171,7 +181,6 @@ function addDataLocalStorage(event) {
         messages.push("*Llegaste al limite de carácteres. (Peliculas 50, Commentario 100)")
     }
 
-
     if(anio.length > 4) {
        messages.push("El año no puede ser superior a 4 digitos.")
     }
@@ -180,27 +189,40 @@ function addDataLocalStorage(event) {
         messages.push("Debes escribir el año en numeros <i>(ej: 2023)</i>.")
     }
 
-    
     if(messages.length > 0) {
         event.preventDefault();
         errorMsg.innerHTML = messages.join(' ');
     }
 
     //conectar variable con key local storage
-  let movieList;
+  let movieKey;
     if(localStorage.getItem("movieKey") === null) {
-        movieList = [];
+        movieKey = [];
     } else {
-        movieList = JSON.parse(localStorage.getItem("movieKey"))
+        movieKey = JSON.parse(localStorage.getItem("movieKey"))
         
     }
-
+    //******************** IDENTIFICADOR NEW MOVIE PARA DELETE
+    //creamos key lastMovieId
+    function getMovieID() {
+        let lastMovieId = localStorage.getItem("lastMovieId") || "-1";
+        let newMovieId = JSON.parse(lastMovieId) + 1;
+        localStorage.setItem("lastMovieId", JSON.stringify(newMovieId))
+        return newMovieId;
+    }
+   
    //agregar values en forma de objeto a movieKey
-   movieList.push({movie, anio, rating, comment})
+   movieKey.push({movie, anio, rating, comment, movieID})
 
    //agregar objeto creado al local storage
-   localStorage.setItem("movieKey", JSON.stringify(movieList));
+   localStorage.setItem("movieKey", JSON.stringify(movieKey));
    showDataHtml()
+
+   //refresh inputs
+   document.getElementById("movie").value = ""
+   document.getElementById("anio").value = ""
+   document.getElementById("specificSizeSelect").value = "Rating"
+   document.getElementById("exampleFormControlTextarea1").value = ""
 
 }
 
@@ -228,14 +250,14 @@ function showDataHtml() {
   let htmlElements = "";
 
   movieKey.forEach((element, index) => {
-      htmlElements += `<tr>
+      htmlElements += `<tr id="movieContainer" movieid="${element.movieID}">
           <th scope="row">${element.movie}</th>
           <td>${element.anio}</td>
           <td>${element.rating}</td>
           <td><i>"${element.comment}"</i></td>
           <td>
-          <a href="#" onclick="edit(${index})" class="btn btn-warning btn-sm edit">Editar</a>
-          <a href="#" onclick="remove(${index})" class="btn btn-danger btn-sm delete">Eliminar</a>
+          <a href="#" onclick="editData(${index})" class="btn btn-warning btn-sm edit">Editar</a>
+          <a href="#" onclick="remove(event)" class="btn btn-danger btn-sm delete">Eliminar</a>
           </td>
           </tr>`
 
@@ -246,5 +268,143 @@ function showDataHtml() {
 
 document.onload = showDataHtml()
 
+//******************** DELETE DATA
 
+//le paso como parametro ID de movie dentro de obj que quiero eliminar 
+function remove(event) {
+
+    // event.target.parentNode.parentNode.remove();
+    let accederListaHTML = event.target.parentNode.parentNode; //agarra fila a eliminar
+    let movieRow = document.getElementById("movieContainer") 
+    let accessID = movieRow.getAttribute("movieid"); 
+    accederListaHTML.remove()
+    deleteMovieIdObj(accessID); //eliminar del local storage
+ }
+
+
+
+
+ //********guardar movie ID en local Storage
+function deleteMovieIdObj(movieID) {
+    //obtengo
+    let movieArrObj = JSON.parse(localStorage.getItem("movieKey")) //obtenemos array con objetos
+    //busco movie ID de pelicula que quiero eliminar
+    let movieIndexInArray =  movieArrObj.findIndex(element => element.movieID === movieID)
+    //Elimino elemento unicamente 1 elemento
+    movieArrObj.splice(movieIndexInArray, 1)
+
+    let movieArrayJSON = JSON.stringify(movieArrObj);
+
+    localStorage.setItem("movieKey", movieArrayJSON);
+
+}
+
+
+
+// let arrmovies = JSON.parse(localStorage.getItem("movieKey"))
+// console.log(arrmovies[0].movieID) //asi accedemos a propiedad de objeto 
+
+
+// console.log(localStorage.getItem("movieKey".movie))
+//******************** EDIT DATA
+
+    function editData(index) {
+
+        //cambiar botones 
+        const updateButton = document.querySelector("#boton-actualizar") 
+        updateButton.style.display = "inline-block" 
+
+        const submitButton = document.querySelector("#boton-form")
+        submitButton.style.display = "none" 
+
+          //obtener data del local storage
+        let movieKey; 
+         if(localStorage.getItem("movieKey") === null) {
+        movieKey = [];
+        } else {
+        movieKey = JSON.parse(localStorage.getItem("movieKey"))
+        }
+
+        //mostrar valores en submit form 
+       document.getElementById("movie").value = movieKey[index].movie
+       document.getElementById("anio").value = movieKey[index].anio
+       document.getElementById("specificSizeSelect").value = movieKey[index].rating
+       document.getElementById("exampleFormControlTextarea1").value = movieKey[index].comment
+    
+console.log(movieKey[index].movie)
+console.log(document.getElementById("movie").value)
+
+
+       document.getElementById("boton-actualizar").onclick = function () {
+
+        //validadores
+
+        //actualizar data en table, pero falta anclarla despues 
+            movieKey[index].movie = document.getElementById("movie").value
+            movieKey[index].anio = document.getElementById("anio").value
+            movieKey[index].rating = document.getElementById("specificSizeSelect").value
+            movieKey[index].comment = document.getElementById("exampleFormControlTextarea1").value
+
+            console.log(movieKey)
+            console.log(JSON.stringify(movieKey))
+
+        
+        //anclar al local storage para que se actualize misma fila
+        localStorage.setItem("movieKey", JSON.stringify(movieKey))
+
+        console.log(movieKey) //con esto cache que el problema es el local storage
+
+        //actualizar en html 
+        showDataHtml()
+
+
+        //  document.getElementById("movie").value = ""
+        //  document.getElementById("anio").value = ""
+        //  document.getElementById("specificSizeSelect").value = ""
+        //  document.getElementById("exampleFormControlTextarea1").value = ""
+
+         //cambiar botones 
+         const updateButton = document.querySelector("#boton-actualizar") 
+         updateButton.style.display = "none" 
+ 
+         const submitButton = document.querySelector("#boton-form")
+         submitButton.style.display = "inline-block" 
+
+
+       }
+
+
+
+    }
+
+
+
+
+//******************** DELETE DATA FROM LOCAL STORAGE
+
+//     function remove() {
+
+     
+
+//         const movieContainer = document.getElementById("movieContainer")
+
+//          //get data from local storage, parse it 
+//         let movieKey; 
+//             movieKey = JSON.parse(localStorage.getItem("movieKey"))
+
+//             console.log(JSON.parse(localStorage.getItem("movieKey")).splice(index))
+
+//         //let spliceMovieArray = movieKey.splice(index)
+//         //console.log(spliceMovieArray)
+
+//         //console.log(movieKey[index]) //Test para ver como acceder a cada obj
+//         // localStorage.removeItem("movieKey", index); //elimina del local storage
+//         //  movieContainer.remove() //eliminar de html
+
+
+//     }
+    
+
+// remove()
+// //console.log(JSON.parse(localStorage.getItem("movieKey", "movieKey[0]")))
 
