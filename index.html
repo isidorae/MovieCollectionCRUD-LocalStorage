@@ -52,8 +52,9 @@
 <!-- FORMULARIO-->
 <br><br>
 <h2 id="agrega-pelicula-header" class="text-center fw-bold text-white fs-1">Agrega una Pelicula!</h2>
+<h2 id="edita-pelicula-header" class="text-center fw-bold text-white fs-1">**Editando Pelicula**</h2>
 <section class="container">
-  <p class="errorMsg pt-1"></p>
+  <p id="errorMsg" class="pt-1"></p>
   <form onsubmit="addDataLocalStorage(event)" id ="movie-form" class="row gy-2 gx-3 align-items-center pt-2">
     <div class="col-6 input-group">
       <label class="visually-hidden" for="autoSizingInput">Name</label>
@@ -85,6 +86,17 @@
       </div>    
     </div>
   </form>
+</section>
+<section class="container">
+<div class="alert alert-success col-sm-3 add-alert" role="alert">
+  Pelicula agregada con exito! 
+</div>
+<div class="alert alert-success col-sm-3 edit-alert" role="alert">
+  Pelicula editada con exito!
+</div>
+<div class="alert alert-danger col-sm-4 delete-alert" role="alert">
+  La pelicula ha sido eliminada de la lista.  
+</div>
 </section>
 <!-- TABLE-->
 <section class="container table-responsive">

@@ -91,7 +91,7 @@ h2 {
 
 /*table*/
 
-.errorMsg {
+#errorMsg {
     color:var(--red-logo-color);
 }
 
