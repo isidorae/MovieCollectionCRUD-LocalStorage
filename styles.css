@@ -2,6 +2,7 @@
 :root {
     --red-logo-color: #ce3131;
     --hero-img-opacity: linear-gradient(143deg, rgba(2,0,36,0.7) 0%, rgba(98,98,170,0.6) 42%, rgba(255,0,84,0.6) 100%);
+    --hero-img-opacity-light: linear-gradient(143deg, rgba(229, 231, 246, 0.6) 30%, rgba(171, 171, 217, 0.6) 50%, rgba(255,0,84,0.6) 100%);
     --red-logo-color-hover: #5b2222;
     --bg-color: linear-gradient(143deg, rgba(220, 218, 218, 0.7) 0%, rgba(237, 236, 242, 0.6) 42%, rgba(244, 240, 254, 0.6) 100%);
 }
@@ -17,7 +18,6 @@
 }
 
 .navbar-toggler {
-   
 border: none !important;
    
   }
@@ -47,6 +47,14 @@ border: none !important;
     box-shadow: 0.1rem 0.2rem 0.3rem rgb(41, 37, 37);
   }
 
+  .btn-secondary {
+    --bs-btn-bg: rgb(190, 190, 190)!important;
+    --bs-btn-border-color: rgb(190, 190, 190)!important;
+    --bs-btn-hover-bg: rgb(201, 201, 201)!important;
+    --bs-btn-hover-border-color: rgb(190, 190, 190)!important;
+    box-shadow: 0.1rem 0.2rem 0.3rem rgb(81, 77, 77);
+  }
+
 /* table*/
 .table-dark {
     border: medium solid var(--red-logo-color);
@@ -70,7 +78,9 @@ h2 {
     background-size: cover;
     background-repeat: no repeat;
     
+    
 }
+
 
 .opacity-bg {
     height: inherit;
@@ -107,6 +117,7 @@ h2 {
     background-repeat: no-repeat;
 }
 
+
 /* footer */
 .footer-container {
     height: 6rem;
@@ -121,4 +132,12 @@ h2 {
 }
 
 
+/******************** media Queries ********************/
 
+@media (max-width: 576px) { 
+
+.titles-table img {
+    height: 2.5rem;
+}
+
+}

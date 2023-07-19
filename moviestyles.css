@@ -1,0 +1,82 @@
+/********************** Custom Properties **********************/
+:root {
+    --red-logo-color: #ce3131;
+    --hero-img-opacity: linear-gradient(143deg, rgba(2,0,36,0.7) 0%, rgba(98,98,170,0.6) 42%, rgba(233, 217, 222, 0.6) 100%);
+    --hero-img-opacity-light: linear-gradient(143deg, rgba(251, 144, 173, 0.6) 30%, rgba(171, 171, 217, 0.6) 50%, rgba(255,0,84,0.6) 100%);
+    --red-logo-color-hover: #5b2222;
+    --bg-color: linear-gradient(143deg, rgba(220, 218, 218, 0.7) 0%, rgba(237, 236, 242, 0.6) 42%, rgba(244, 240, 254, 0.6) 100%);
+}
+
+/******************** Bootstrap styles ********************/
+
+.bg-light {
+    --bs-bg-opacity: 0.4 !important;
+   /* background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important; */
+   background-color: rgba(var(--bs-light-rgb), var(--hero-img-opacity)) !important;
+  }
+
+
+
+/******************** My style********************/
+
+
+/* bg-image movies.html*/
+
+.moviehtml-title {
+    text-shadow: 0.2rem 0.2rem 0.3rem rgb(193, 48, 48);
+}
+
+
+
+.bg-image {
+    height:100%;
+    background-image: url(./img/moviecollagemoviehtml.jpeg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat;
+    
+}
+
+.bg-image-opacity-layer {
+    height: inherit;
+    background: var(--hero-img-opacity-light);
+}
+
+.comment-shadow {
+    text-shadow: 0.2rem 0.2rem 0.2rem rgb(193, 48, 48);
+}
+
+
+/** SERIES PROXIMAMENTE**/
+
+.series-img {
+    height: 80vh;
+    background-image: url(./img/series.jpeg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat;
+    
+}
+
+.opacity-container {
+    height: inherit;
+    width: 100%;
+    background: var(--hero-img-opacity);
+}
+
+.container-proximamente {
+    height: 80vh;
+}
+
+
+
+/******************** media Queries ********************/
+
+
+@media (max-width: 576px) { 
+
+    .titles-table img {
+        height: 2.5rem;
+    }
+    
+    }

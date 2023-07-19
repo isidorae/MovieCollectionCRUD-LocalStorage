@@ -2,7 +2,11 @@
  //HIDE UPADATE BUTTON
 function hideUpdateButton () {
     const updateButton = document.querySelector("#boton-actualizar") 
+    const cancelButton = document.querySelector("#boton-cancelar")
+
     updateButton.style.display = "none" //default --> display: inline-block;
+    cancelButton.style.display = "none"
+    
 }
 
 hideUpdateButton()
@@ -30,6 +34,10 @@ function hideAlerts() {
 hideAlerts()
 
 
+
+
+
+
 //*********************** VALIDATE FORM ******************************
 function validateFrom() {
     let movie = document.getElementById("movie").value
@@ -37,12 +45,26 @@ function validateFrom() {
     let rating = document.getElementById("specificSizeSelect").value
     let comment = document.getElementById("exampleFormControlTextarea1").value
 
+    let movieKey; 
+    if(localStorage.getItem("movieKey") === null) {
+        movieKey = [];
+    } else {
+        movieKey = JSON.parse(localStorage.getItem("movieKey"))
+    }
+
+    let findRepeatedName = movieKey.find(element => {
+        let elementMovie = element.movie.toLowerCase()
+        let movieInput = document.getElementById("movie").value.toLowerCase()
+       // return element.movie == document.getElementById("movie").value
+       return elementMovie == movieInput;
+     });
+
       
     let messages = [];
 
-    // if(findRepeatedMovie == true) {
-    //     messages.push("*Ya esta esta pelicula en tu lista");
-    // }
+    if (findRepeatedName || movieKey.movie == document.getElementById("movie").value) { 
+        messages.push(`La pelicula "${findRepeatedName.movie}" ya esta en tu lista.`);
+    }
 
     if(movie === "" || anio === "" || comment === "") {
         messages.push("*Debes rellenar todos los campos.");
@@ -68,17 +90,23 @@ function validateFrom() {
         messages.push("Debes escribir el año en numeros <i>(ej: 2023)</i>.")
         
     }
+    // if(findRepeatedName || findRepeatedName.movie !== document.getElementById("movie").value) {
+    //     return true;
+    // }
 
     if(messages.length > 0) {
         //show error msg
         errorMsg.style.display = "block"
         errorMsg.innerHTML = messages.join(' ');
         return false
-    }
-
+    }  //else if (findRepeatedName || findRepeatedName.movie == undefined || null ) {
     return true;
+    // }
+
 
 }
+
+
 
 
 //******************** STORE DATA LOCAL STORAGE **********************
@@ -172,7 +200,7 @@ function showDataHtml() {
           <td><i>"${element.comment}"</i></td>
           <td>
           <a href="#" onclick="editData(event)" class="btn btn-warning btn-sm edit">Editar</a>
-          <a href="#" onclick="remove(event)" data-movieid="${element.movieID}" class="btn btn-danger btn-sm delete">Eliminar</a>
+          <a href="#" onclick="remove(event)" class="btn btn-danger btn-sm delete">Eliminar</a>
           </td>
           </tr>`
 
@@ -288,10 +316,12 @@ let selectedMovieID;
             editTitle.style.display = "block"
 
             //cambiar botones 
+         const submitButton = document.querySelector("#boton-form")
          const updateButton = document.querySelector("#boton-actualizar") 
-         updateButton.style.display = "inline-block" 
+         const cancelButton = document.querySelector("#boton-cancelar")
 
-        const submitButton = document.querySelector("#boton-form")
+         updateButton.style.display = "inline-block" 
+         cancelButton.style.display = "inline-block"
          submitButton.style.display = "none" 
 
             //obtenemos array con objetos
@@ -338,6 +368,7 @@ let selectedMovieID;
         let accessID = selectedMovieID
         console.log("accessID: " + accessID)
 
+        if(validateFrom() == true) {
         //get the updated values from form fields
         let updatedMovie = document.getElementById("movie").value 
         let updatedAnio = document.getElementById("anio").value
@@ -373,10 +404,12 @@ let selectedMovieID;
 
 
           //cambiar botones 
+          const submitButton = document.querySelector("#boton-form")
           const updateButton = document.querySelector("#boton-actualizar") 
+          const cancelButton = document.querySelector("#boton-cancelar")
+
           updateButton.style.display = "none" 
- 
-         const submitButton = document.querySelector("#boton-form")
+          cancelButton.style.display = "none" 
           submitButton.style.display = "inline-block" 
 
           //mostrar data html
@@ -394,10 +427,31 @@ let selectedMovieID;
         document.getElementById("specificSizeSelect").value = "Rating";
         document.getElementById("exampleFormControlTextarea1").value = "";
         displayTableRow() 
-         
+    }
 
         }
 
 
+//******************** EDIT DATA - CANCEL
+        function cancelUpdate(event) {
 
- 
+        //cambiar botones 
+        const submitButton = document.querySelector("#boton-form")
+        const updateButton = document.querySelector("#boton-actualizar") 
+        const cancelButton = document.querySelector("#boton-cancelar")
+        const errorMsg = document.querySelector("#errorMsg");
+
+        updateButton.style.display = "none" 
+        cancelButton.style.display = "none" 
+        submitButton.style.display = "inline-block" 
+
+        const titleHeader = document.querySelector("#agrega-pelicula-header")
+        titleHeader.style.display = "block"
+        const editTitle = document.querySelector("#edita-pelicula-header")
+        editTitle.style.display = "none"
+
+         //eliminar errorMsg
+         errorMsg.style.display = "none"
+
+
+        }

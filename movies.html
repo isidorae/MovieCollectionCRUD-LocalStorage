@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyMovies</title>
+    <title>MisMovies</title>
 <link rel="stylesheet" href="styles.css" class="rel">
+<link rel="stylesheet" href="moviestyles.css" class="rel">
 <link rel="icon" href="./img/favicon.png" class="rel">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -20,10 +21,10 @@
       <div class="collapse navbar-collapse fw-bold d-lg-flex justify-content-lg-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">INICIO</a>
+            <a class="nav-link" aria-current="page" href="index.html">INICIO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="movies.html">MIS MOVIES</a>
+            <a class="nav-link active" href="movies.html">MIS MOVIES</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="series.html">MIS SERIES</a>
@@ -39,27 +40,19 @@
     </div>
   </nav>
 
-<!-- HERO IMAGE-->
-<main class="bg-color">
-  <section class="bg-hero-image">
-    <article class="opacity-bg">
-      <div class="hero-img-container d-flex flex-column justify-content-center align-items-center">
-          <h1 class="fw-bold text-white fs-1">Bienvenido <i>CineAdicto!</i></h1>
-          <p class="fw-bold text-white text-center fs-2">¡Comienza a crear tu Colección! <br> haz click para agregar tu primera pelicula</p>
-          <button type="button" class="col-4 btn btn-primary btn-lg fw-bold text-uppercase"><a class="text-decoration-none text-white" href="#agrega-pelicula-header">Añadir Pelicula</a></button>
-      </div>
-    </article>
-  </section>
-<!-- FORMULARIO-->
+  <!-- FORMULARIO-->
+<main class="bg-color bg-image">
+<div class="bg-image-opacity-layer">
+
 <br><br>
-<h2 id="agrega-pelicula-header" class="text-center fw-bold text-white fs-1">Agrega una Pelicula!</h2>
+<h2 id="agrega-pelicula-header" class="text-center fw-bold text-white fs-1 moviehtml-title">Tu Colección</h2>
 <h2 id="edita-pelicula-header" class="text-center fw-bold text-white fs-1">**Editando Pelicula**</h2>
 <section class="container">
   <p id="errorMsg" class="pt-1"></p>
   <form onsubmit="addDataLocalStorage(event)" id ="movie-form" class="row gy-2 gx-3 align-items-center pt-2">
     <div class="col-6 input-group">
-      <label class="visually-hidden rounded" for="autoSizingInput">Name</label>
-      <div class="input-group-text">Pelicula</div>
+      <label class="visually-hidden" for="autoSizingInput">Name</label>
+      <div class="input-group-text ">Pelicula</div>
       <input id="movie" type="text" class="form-control" id="autoSizingInput" placeholder="Nombre pelicula">
     </div>
     <div class="col-6">
@@ -78,7 +71,7 @@
         </select>
       </div>
       <div class="col-12 mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label fw-bold">Comentario:</label>
+        <label for="exampleFormControlTextarea1" class="form-label fs-4 fw-bold text-white comment-shadow">Comentario:</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="escribe un comentario de maximo 100 caracteres!"></textarea>
       </div>     
       <div class="col-auto">
@@ -115,7 +108,7 @@
   <tbody id="cuerpo-lista"></tbody>
 </table>
 </section>
-
+</div>
 
 </main>
 
