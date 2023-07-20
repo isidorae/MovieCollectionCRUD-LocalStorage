@@ -29,12 +29,12 @@ function hideAlerts() {
 
     const deleteAlert = document.querySelector(".delete-alert")
     deleteAlert.style.display = "none"
+
+    const warningAlert = document.querySelector(".warning-alert")
+    warningAlert.style.display = "none"
 }
 
 hideAlerts()
-
-
-
 
 
 
@@ -45,26 +45,26 @@ function validateFrom() {
     let rating = document.getElementById("specificSizeSelect").value
     let comment = document.getElementById("exampleFormControlTextarea1").value
 
-    let movieKey; 
-    if(localStorage.getItem("movieKey") === null) {
-        movieKey = [];
-    } else {
-        movieKey = JSON.parse(localStorage.getItem("movieKey"))
-    }
+    // let movieKey; 
+    // if(localStorage.getItem("movieKey") === null) {
+    //     movieKey = [];
+    // } else {
+    //     movieKey = JSON.parse(localStorage.getItem("movieKey"))
+    // }
 
-    let findRepeatedName = movieKey.find(element => {
-        let elementMovie = element.movie.toLowerCase()
-        let movieInput = document.getElementById("movie").value.toLowerCase()
-       // return element.movie == document.getElementById("movie").value
-       return elementMovie == movieInput;
-     });
+    // let findRepeatedName = movieKey.find(element => {
+    //     let elementMovie = element.movie.toLowerCase()
+    //     let movieInput = document.getElementById("movie").value.toLowerCase()
+    //    // return element.movie == document.getElementById("movie").value
+    //    return elementMovie == movieInput;
+    //  });
 
       
     let messages = [];
 
-    if (findRepeatedName || movieKey.movie == document.getElementById("movie").value) { 
-        messages.push(`La pelicula "${findRepeatedName.movie}" ya esta en tu lista.`);
-    }
+    // if (findRepeatedName || movieKey.movie == document.getElementById("movie").value) { 
+    //     messages.push(`La pelicula "${findRepeatedName.movie}" ya esta en tu lista.`);
+    // }
 
     if(movie === "" || anio === "" || comment === "") {
         messages.push("*Debes rellenar todos los campos.");
@@ -90,9 +90,6 @@ function validateFrom() {
         messages.push("Debes escribir el año en numeros <i>(ej: 2023)</i>.")
         
     }
-    // if(findRepeatedName || findRepeatedName.movie !== document.getElementById("movie").value) {
-    //     return true;
-    // }
 
     if(messages.length > 0) {
         //show error msg
@@ -106,7 +103,40 @@ function validateFrom() {
 
 }
 
+function validateRepeatedMovie() {
+    let movie = document.getElementById("movie").value
+   const warningAlert = document.querySelector(".warning-alert")
+ 
 
+    let movieKey; 
+    if(localStorage.getItem("movieKey") === null) {
+        movieKey = [];
+    } else {
+        movieKey = JSON.parse(localStorage.getItem("movieKey"))
+    }
+
+    let findRepeatedName = movieKey.find(element => {
+        let elementMovie = element.movie.toLowerCase()
+        let movieInput = document.getElementById("movie").value.toLowerCase()
+       // return element.movie == document.getElementById("movie").value
+       return elementMovie == movieInput;
+     });
+
+          
+
+    if (findRepeatedName || movieKey.movie == document.getElementById("movie").value) { 
+        warningAlert.style.display = "block"
+        setTimeout(() => document.querySelector(".warning-alert").style.display = "none", 3000)
+        return false
+     
+    }   else {
+    return true;
+
+    }
+
+
+
+}
 
 
 //******************** STORE DATA LOCAL STORAGE **********************
@@ -135,7 +165,7 @@ const getMovieID = () => {
 }
    
 
-    if(validateFrom() == true) {
+    if(validateFrom() == true && validateRepeatedMovie() == true) {
     let errorMsg = document.querySelector("#errorMsg");
     let movie = document.getElementById("movie").value
     let anio = document.getElementById("anio").value
@@ -211,7 +241,6 @@ function showDataHtml() {
 }
 
 document.onload = showDataHtml()
-
 
 
 
